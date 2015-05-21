@@ -27,7 +27,7 @@ class TMP1x2 {
         _i2c    = i2c;
     }
 
-    function getTemp(cb = null) {
+    function read(cb = null) {
         if (_getShutdown()) {
             _startConversion();
             if (cb) { // asynchronous path

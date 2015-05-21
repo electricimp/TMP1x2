@@ -17,12 +17,12 @@ i2c.configure(CLOCK_SPEED_400_KHZ);
 temp <- TMP1x2(i2c);
 ```
 
-### temp.getTemp(*[callback]*)
+### temp.read(*[callback]*)
 
-The **getTemp** function reads and returns the the current temperature in celsius. If a callback is supplied, the read will execute asynchrounously and the result will be passed to the callback function - if no callback is supplied, the read will execute synchronously and an object containing the sensor data will be returned.
+The **read** function reads and returns the the current temperature in celsius. If a callback is supplied, the read will execute asynchrounously and the result will be passed to the callback function - if no callback is supplied, the read will execute synchronously and an object containing the sensor data will be returned.
 
 ```squirrel
-temp.getTemp(function(result) {
+temp.read(function(result) {
     if ("err" in result) {
         // if we get an error, log it
         server.log("Error Reading TMP102: "+err);
