@@ -1,4 +1,7 @@
 class TMP1x2 {
+
+    static version = [1, 0, 0];
+
     // Register addresses
     static TEMP_REG         = 0x00;
     static CONF_REG         = 0x01;
@@ -53,6 +56,24 @@ class TMP1x2 {
         }
     }
 
+    function setHighThreshold(ths) {
+        server.log(format("setting high threshold to 0x%04X", _tempToRaw(ths)));
+        _setReg(T_HIGH_REG, _tempToRaw(ths));
+    }
+
+    function getHighThreshold() {
+        return _rawToTemp(_getReg(T_HIGH_REG));
+    }
+
+    function setLowThreshold(ths) {
+        server.log(format("setting low threshold to 0x%04X", _tempToRaw(ths)));
+        _setReg(T_LOW_REG, _tempToRaw(ths));
+    }
+
+    function getLowThreshold() {
+        return _rawToTemp(_getReg(T_LOW_REG));
+    }
+
     function setShutdown(state) {
         _setRegBit(CONF_REG, 8, state);
     }
@@ -75,24 +96,6 @@ class TMP1x2 {
 
     function setExtMode(state) {
         _setRegBit(CONF_REG, 4, state);
-    }
-
-    function setLowThreshold(ths) {
-        server.log(format("setting low threshold to 0x%04X", _tempToRaw(ths)));
-        _setReg(T_LOW_REG, _tempToRaw(ths));
-    }
-
-    function getLowThreshold() {
-        return _rawToTemp(_getReg(T_LOW_REG));
-    }
-
-    function setHighThreshold(ths) {
-        server.log(format("setting high threshold to 0x%04X", _tempToRaw(ths)));
-        _setReg(T_HIGH_REG, _tempToRaw(ths));
-    }
-
-    function getHighThreshold() {
-        return _rawToTemp(_getReg(T_HIGH_REG));
     }
 
     /******************** PRIVATE METHODS ********************/
