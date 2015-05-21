@@ -32,6 +32,7 @@ temp.getTemp(function(result) {
     // if it was successful, do something with it
     console.log(result.temp + "");
 });
+```
 
 **NOTE:** If an error occured during the read, an ```err``` key will be present in the data - you should *always* check for the existance of the ```err``` key before using the results:
 
