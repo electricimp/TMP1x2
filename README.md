@@ -2,6 +2,8 @@
 
 Driver class for the TMP102 and TMP112 digital temperature sensors. The TMP1x2 class allows you to read the current temperature, as well as configure various interupts (the TMP1x2 class allows you to configure interrupts, however it does not deal with handling callbacks).
 
+**To add this library to your project, add** `#require "tmp1x2.class.nut:1.0.0"` **to the top of your device code**
+
 ## Class Usage
 
 ### Constructor
@@ -9,7 +11,7 @@ Driver class for the TMP102 and TMP112 digital temperature sensors. The TMP1x2 c
 To instantiate a new TMP1x2 object, you need to pass in a configured I2C object, and an optional I2C address. If no address is supplied, a default address of ```0x90``` will be use:
 
 ```squirrel
-#require "tmp1x2.class.nut:1.0"
+#require "tmp1x2.class.nut:1.0.0"
 
 i2c  <- hardware.i2c89;
 i2c.configure(CLOCK_SPEED_400_KHZ);
@@ -37,6 +39,6 @@ temp.read(function(result) {
 **NOTE:** If an error occured during the read, an ```err``` key will be present in the data - you should *always* check for the existance of the ```err``` key before using the results:
 
 
-# License
+## License
 
 The TMP1x2 library is licensed under the [MIT License](./LICENSE).
