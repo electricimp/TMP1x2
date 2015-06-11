@@ -30,7 +30,7 @@ temp.read(function(result) {
     }
 
     // if it was successful, do something with it
-    console.log(result.temp + "");
+    console.log(result.temp + "ºC");
 });
 ```
 
