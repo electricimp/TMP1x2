@@ -11,7 +11,7 @@ class TMP1x2 {
     static T_LOW_REG        = 0x02;
     static T_HIGH_REG       = 0x03;
 
-    // ADC resolution in ºC
+    // ADC resolution in degrees C
     static DEG_PER_COUNT    = 0.0625;
 
     // Breakable tight loop for conversion_done
@@ -43,7 +43,7 @@ class TMP1x2 {
     // Parameters:
     //    cb         An optional callback with 1 parameter (data)
     //                  The data parameter will always have a key called
-    //                  'temp' with the temperature in ºC
+    //                  'temp' with the temperature in degrees C
     //                  If an error occured, temp will be null, and an
     //                  additional key ('err') will be present
     function read(cb = null) {
@@ -89,22 +89,21 @@ class TMP1x2 {
             local temp = _rawToTemp(_getReg(TEMP_REG));
             if (cb != null) {
                 imp.wakeup(0, function() { cb({ "temp": temp }); });
+                return;
             }
-            else {
-                return { "temp": temp };
-            }
+            return { "temp": temp };
         }
     }
 
     // Sets the THigh threshold register
     //
     // Parameters:
-    //    ths        The temperature in ºC (integer)
+    //    ths        The temperature in degrees C (integer)
     function setHighThreshold(ths) {
         _setReg(T_HIGH_REG, _tempToRaw(ths));
     }
 
-    // Returns the THigh threshold in ºC
+    // Returns the THigh threshold in degrees C
     function getHighThreshold() {
         return _rawToTemp(_getReg(T_HIGH_REG));
     }
@@ -112,7 +111,7 @@ class TMP1x2 {
     // Sets the TLow threshold register
     //
     // Parameters:
-    //    ths        The temperature in ºC (integer)
+    //    ths        The temperature in degrees C (integer)
     function setLowThreshold(ths) {
         _setReg(T_LOW_REG, _tempToRaw(ths));
     }
@@ -168,7 +167,7 @@ class TMP1x2 {
     // Parameters:
     //    state      The desired extended mode state (1 or 0).
     //               When extended mode is enabled, the tmp1x2
-    //               can read temperatures above 128ºC
+    //               can read temperatures above 128 degrees C
     function setExtMode(state) {
         _setRegBit(CONF_REG, 4, state);
     }
@@ -189,9 +188,8 @@ class TMP1x2 {
         local val = _i2c.read(_addr, format("%c", reg), 2);
         if (val != null) {
             return (val[0] << 8) | (val[1]);
-        } else {
-            return null;
         }
+        return null;
     }
 
     function _setReg(reg, val) {
@@ -200,11 +198,10 @@ class TMP1x2 {
 
     function _setRegBit(reg, bit, state) {
         local val = _getReg(reg);
-        if (state == 0) {
-            val = val & ~(0x01 << bit);
-        } else {
-            val = val | (0x01 << bit);
-        }
+
+        if (state == 0) { val = val & ~(0x01 << bit); }
+        else { val = val | (0x01 << bit); }
+
         _setReg(reg, val);
     }
 
@@ -215,14 +212,12 @@ class TMP1x2 {
     function _tempToRaw(temp) {
         local raw = ((temp * 1.0) / DEG_PER_COUNT).tointeger();
         if (getExtMode()) {
-            if (raw < 0) {
-                _twosComp(raw, 0x1FFF);
-            }
+            if (raw < 0) { _twosComp(raw, 0x1FFF); }
+
             raw = (raw & 0x1FFF) << 3;
         } else {
-            if (raw < 0) {
-                _twosComp(raw, 0x0FFF);
-            }
+            if (raw < 0) { _twosComp(raw, 0x0FFF); }
+
             raw = (raw & 0x0FFF) << 4;
         }
         return raw;
@@ -231,14 +226,10 @@ class TMP1x2 {
     function _rawToTemp(raw) {
         if (getExtMode()) {
             raw = (raw >> 3) & 0x1FFF;
-            if (raw & 0x1000) {
-                raw = -1.0 * _twosComp(raw, 0x1FFF);
-            }
+            if (raw & 0x1000) { raw = -1.0 * _twosComp(raw, 0x1FFF); }
         } else {
             raw = (raw >> 4) & 0x0FFF;
-            if (raw & 0x0800) {
-                raw = -1.0 * _twosComp(raw, 0x0FFF);
-            }
+            if (raw & 0x0800) { raw = -1.0 * _twosComp(raw, 0x0FFF); }
         }
         return raw.tofloat() * DEG_PER_COUNT;
     }
@@ -259,9 +250,7 @@ class TMP1x2 {
 
         if (_getConvReady()) {
             // success: cancel the timeout timer
-            if (_conversion_timeout_timer) {
-                imp.cancelwakeup(_conversion_timeout_timer);
-            }
+            if (_conversion_timeout_timer) { imp.cancelwakeup(_conversion_timeout_timer); }
 
             // We want to clear the callback before we invoke it
             // so we pull it into a local variable, null out the class property

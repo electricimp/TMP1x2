@@ -30,7 +30,7 @@ temp.read(function(result) {
     }
 
     // if it was successful, do something with it
-    console.log(result.temp + "ºC");
+    server.log(result.temp + " degrees C");
 });
 ```
 
@@ -38,16 +38,16 @@ temp.read(function(result) {
 
 ### setHighThreshold(*threshold*)
 
-Sets the THigh threshold register (in ºC).
+Sets the THigh threshold register (in degrees C).
 
 ```squirrel
-// The high threshold to 30ºC
+// The high threshold to 30 degrees C
 temp.setHighThreshold(30);
 ```
 
 ### getHighThreshold()
 
-Returns the THigh threshold in ºC.
+Returns the THigh threshold in degrees C.
 
 ```squirrel
 server.log(temp.getHighThreshold());
@@ -56,16 +56,16 @@ server.log(temp.getHighThreshold());
 
 ### setLowThreshold(*threshold*)
 
-Sets the TLow threshold register (in ºC).
+Sets the TLow threshold register (in degrees C).
 
 ```squirrel
-// The low threshold to 18ºC
+// The low threshold to 18 degrees C
 temp.setHighThreshold(18);
 ```
 
 ### getLowThreshold()
 
-Returns the TLow threshold in ºC.
+Returns the TLow threshold in degrees C.
 
 ```squirrel
 server.log(temp.getLowThreshold());
@@ -103,8 +103,8 @@ function onWake() {
 Enables comparator mode. In comparator mode, the Alert pin is activated when the temperature equals or exceeds the value in the THigh register and it remains active until the temperature falls below the value in the TLow register.
 
 ```squirrel
-// Setup interrupt to trigger when temp is above 30ºC,
-// and remain active until it drops below 28ºC
+// Setup interrupt to trigger when temp is above 30 degrees C,
+// and remain active until it drops below 28 degrees C
 temp.setHighThreshold(30);
 temp.setLowThreshold(28);
 temp.setModeComparator();
@@ -115,7 +115,7 @@ temp.setModeComparator();
 Enables interrupt mode. In interrupte mode, the Alert pin is activated when the temperature exceeds THigh or goes below TLow. The Alert pin is cleared when the host controller reads the temperature register.
 
 ```squirrel
-// Setup interrupt to trigger when temp is above 30ºC, or below 15ºC.
+// Setup interrupt to trigger when temp is above 30 degrees C, or below 15 degrees C.
 temp.setHighThreshold(30);
 temp.setLowThreshold(15);
 temp.setModeInterrupt();
@@ -123,15 +123,15 @@ temp.setModeInterrupt();
 
 ### setActiveLow()
 
-Sets the interrupt pin to be active low
+Sets the interrupt pin to be active low.
 
 ### setActiveHigh()
 
-Sets the interrupt pin to be active high
+Sets the interrupt pin to be active high.
 
 ### setExtMode(state)
 
-Sets the extended mode state (0 or 1). When extended mode is enabled, the tmp1x2 can read temperatures above 128ºC.
+Sets the extended mode state (0 or 1). When extended mode is enabled, the tmp1x2 can read temperatures above 128 degrees C.
 
 ```squirrel
 // We need really high temperatures..
