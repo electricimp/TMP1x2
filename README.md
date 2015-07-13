@@ -24,12 +24,9 @@ The **read** function reads and returns the the current temperature in celsius. 
 ```squirrel
 temp.read(function(result) {
     if ("err" in result) {
-        // if we get an error, log it
-        server.log("Error Reading TMP102: "+err);
+        server.log("Error Reading TMP102: " + result.err);
         return;
     }
-
-    // if it was successful, do something with it
     server.log(result.temp + " degrees C");
 });
 ```
