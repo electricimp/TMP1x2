@@ -40,29 +40,29 @@ tmp.read(function(result) {
 
 **NOTE:** If an error occured during the read, an ```err``` key will be present in the data - you should *always* check for the existance of the ```err``` key before using the results:
 
-### setShutdownMode(state)
+### setShutdown(state)
 
 Sets the shutdown mode for the TMP1x2 sensor (1 or 0). When shutdown is set to 1, the tmp1x2 enters a low power sleep mode. When shutdown is set to 0, the tmp1x2 maintains a continous converstion state.
 
 ```squirrel
 function goToSleep() {
     // Turn off the tmp1x2 and go to sleep;
-    tmp.setShutdownMode(1);
+    tmp.setShutdown(1);
     imp.onidle(function() { server.sleepfor(3600); });
 }
 
 goToSleep();
 ```
 
-### getShutdownMode()
+### getShutdown()
 
 Returns the current shutdown mode state (0 or 1)
 
 ```squirrel
 function onWake() {
     // Wake the tmp1x2 if it's asleep
-    if (tmp.getShutdownMode() == 1) {
-        tmp.setShutdownMode(0);
+    if (tmp.getShutdown() == 1) {
+        tmp.setShutdown(0);
     }
 }
 ```
