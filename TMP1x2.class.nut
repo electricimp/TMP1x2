@@ -1,6 +1,6 @@
 class TMP1x2 {
 
-    static version = [1, 0, 0];
+    static version = [1, 0, 1];
 
     // Errors
     static TIMEOUT_ERROR = "TMP1x2 conversion timed out";
@@ -59,11 +59,11 @@ class TMP1x2 {
                     // Failure: cancel polling for a result and call the callback with error
                     imp.cancelwakeup(_conversion_poll_timer);
                     _conversion_ready_cb =  null;
-                    imp.wakeup(0, function() { cb({ "err": TMP1x2.TIMEOUT_ERROR, "temp": null }); });
+                    imp.wakeup(0, function() { cb({ "err": TMP1x2.TIMEOUT_ERROR, "temp": null }); }.bindenv(this));
                 });
 
                 _pollForConversion(function() {
-                    imp.wakeup(0, function() { cb({ "temp": _rawToTemp(_getReg(TEMP_REG)) }); });
+                    imp.wakeup(0, function() { cb({ "temp": _rawToTemp(_getReg(TEMP_REG)) }); }.bindenv(this));
                 });
             } else {
                 // Synchronous path
@@ -88,7 +88,7 @@ class TMP1x2 {
         } else {
             local temp = _rawToTemp(_getReg(TEMP_REG));
             if (cb != null) {
-                imp.wakeup(0, function() { cb({ "temp": temp }); });
+                imp.wakeup(0, function() { cb({ "temp": temp }); }.bindenv(this));
                 return;
             }
             return { "temp": temp };
@@ -206,7 +206,8 @@ class TMP1x2 {
     }
 
     function _getRegBit(reg, bit) {
-        return (0x0001 << bit) & _getReg(reg);
+        local result = (0x0001 << bit) & _getReg(reg);
+        return result ? 1 : 0;
     }
 
     function _tempToRaw(temp) {
