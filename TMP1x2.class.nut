@@ -1,6 +1,6 @@
 class TMP1x2 {
 
-    static version = [1, 0, 1];
+    static version = [1, 0, 2];
 
     // Errors
     static TIMEOUT_ERROR = "TMP1x2 conversion timed out";
@@ -53,17 +53,18 @@ class TMP1x2 {
 
             if (cb != null) {
                 // Asynchronous path
+                local boundThis = this;
 
                 // set a timeout callback
                 _conversion_timeout_timer = imp.wakeup(CONVERSION_TIMEOUT, function() {
                     // Failure: cancel polling for a result and call the callback with error
-                    imp.cancelwakeup(_conversion_poll_timer);
-                    _conversion_ready_cb =  null;
-                    imp.wakeup(0, function() { cb({ "err": TMP1x2.TIMEOUT_ERROR, "temp": null }); }.bindenv(this));
+                    imp.cancelwakeup(boundThis._conversion_poll_timer);
+                    boundThis._conversion_ready_cb =  null;
+                    imp.wakeup(0, function() { cb({ "err": TMP1x2.TIMEOUT_ERROR, "temp": null }); });
                 });
 
                 _pollForConversion(function() {
-                    imp.wakeup(0, function() { cb({ "temp": _rawToTemp(_getReg(TEMP_REG)) }); }.bindenv(this));
+                    imp.wakeup(0, function() { cb({ "temp": boundThis._rawToTemp(boundThis._getReg(TEMP_REG)) }); });
                 });
             } else {
                 // Synchronous path
@@ -88,7 +89,7 @@ class TMP1x2 {
         } else {
             local temp = _rawToTemp(_getReg(TEMP_REG));
             if (cb != null) {
-                imp.wakeup(0, function() { cb({ "temp": temp }); }.bindenv(this));
+                imp.wakeup(0, function() { cb({ "temp": temp }); });
                 return;
             }
             return { "temp": temp };
