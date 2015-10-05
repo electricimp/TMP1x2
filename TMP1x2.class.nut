@@ -64,7 +64,7 @@ class TMP1x2 {
                 });
 
                 _pollForConversion(function() {
-                    imp.wakeup(0, function() { cb({ "temp": boundThis._rawToTemp(boundThis._getReg(TEMP_REG)) }); });
+                    imp.wakeup(0, function() { cb({ "temp": boundThis._rawToTemp(boundThis._getReg(TMP1x2.TEMP_REG)) }); });
                 });
             } else {
                 // Synchronous path
