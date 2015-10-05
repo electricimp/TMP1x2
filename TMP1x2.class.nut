@@ -1,6 +1,6 @@
 class TMP1x2 {
 
-    static version = [1, 0, 2];
+    static version = [1, 0, 3];
 
     // Errors
     static TIMEOUT_ERROR = "TMP1x2 conversion timed out";
