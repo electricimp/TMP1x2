@@ -2,7 +2,7 @@
 
 Driver class for the [TMP102](http://www.ti.com.cn/cn/lit/ds/symlink/tmp102.pdf) and [TMP112](http://www.ti.com/lit/ds/symlink/tmp112.pdf) digital temperature sensors. The TMP1x2 class allows you to read the current temperature, as well as configure various interupts.
 
-**To add this library to your project, add `#require "TMP1x2.class.nut:1.0.2"`` to the top of your device code.**
+**To add this library to your project, add `#require "TMP1x2.class.nut:1.0.3"`` to the top of your device code.**
 
 You can view the library’s source code on [GitHub](https://github.com/electricimp/tmp1x2/tree/v1.0.2).
 
@@ -14,7 +14,7 @@ You can view the library’s source code on [GitHub](https://github.com/electric
 To instantiate a new TMP1x2 object, you need to pass in a configured I2C object, and an optional I2C address. If no address is supplied, a default address of ```0x90``` will be use:
 
 ```squirrel
-#require "TMP1x2.class.nut:1.0.2"
+#require "TMP1x2.class.nut:1.0.3"
 
 i2c  <- hardware.i2c89;
 i2c.configure(CLOCK_SPEED_400_KHZ);
@@ -91,7 +91,7 @@ The TMP1x2 class allows you to configure interrupts, however it does not deal wi
 - Configure the interrupt parameters (with *.setHighThreshold()*, *.setLowThreshold())*, *.setModeComparator()*, *.setModeInterrupt()*, *.setActiveHigh()*, and *.setActiveLow()*)
 
 ```squirrel
-#require "TMP1x2.class.nut:1.0.2"
+#require "TMP1x2.class.nut:1.0.3"
 
 // Configure the I2C bus
 i2c  <- hardware.i2c89;

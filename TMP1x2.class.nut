@@ -1,6 +1,6 @@
 class TMP1x2 {
 
-    static version = [1, 0, 2];
+    static version = [1, 0, 3];
 
     // Errors
     static TIMEOUT_ERROR = "TMP1x2 conversion timed out";
@@ -64,7 +64,7 @@ class TMP1x2 {
                 });
 
                 _pollForConversion(function() {
-                    imp.wakeup(0, function() { cb({ "temp": boundThis._rawToTemp(boundThis._getReg(TEMP_REG)) }); });
+                    imp.wakeup(0, function() { cb({ "temp": boundThis._rawToTemp(boundThis._getReg(TMP1x2.TEMP_REG)) }); });
                 });
             } else {
                 // Synchronous path
