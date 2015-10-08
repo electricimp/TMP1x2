@@ -69,7 +69,7 @@ function onWake() {
 
 ### setExtMode(state)
 
-Sets the extended mode state (0 or 1). When extended mode is enabled, the tmp1x2 can read temperatures above 128 degrees C.
+Sets the extended mode state (0 or 1). When extended mode is enabled, the tmp1x2 can read temperatures above 128 degrees C. **NOTE: You will need to reset high and low thresholds if extended mode state changes.**
 
 ```squirrel
 // We need really high temperatures..
@@ -128,13 +128,13 @@ alert.configure(DIGITAL_IN, interruptHandler);
 
 ### setHighThreshold(*threshold*)
 
-Sets the THigh threshold register (in degrees C).
+Sets the THigh threshold register (in degrees C).  **NOTE: You will need to reset threshold if extended mode state changes.**
 
 *See [Using Interrupts](#using-interrupts) for more information.*
 
 ### setLowThreshold(*threshold*)
 
-Sets the TLow threshold register (in degrees C).
+Sets the TLow threshold register (in degrees C). **NOTE: You will need to reset threshold if extended mode state changes.**
 
 *See [Using Interrupts](#using-interrupts) for more information.*
 
