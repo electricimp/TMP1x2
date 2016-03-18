@@ -148,7 +148,7 @@ Enables comparator mode. In comparator mode, the Alert pin is activated when the
 
 Enables interrupt mode. In interrupte mode, the Alert pin is activated when the temperature exceeds THigh or when the temperature goes below TLow under certian conditions.  The Alert pin is cleared when the host controller reads the temperature register.
 
-**Interrupt Conditions** <br>
+**Interrupt Conditions:** <br>
 After a cold boot, only a temperature exceeding THigh will trigger an Alert.  Once an Alert has occurred it will be used to determine the conditions for the next event.  A warm boot/new code will not clear the interrupt state.  Temperature exceeding THigh will trigger an Alert only if the previous Alert was triggered by the temperature dropping below TLow or after cold boot.  Temperature dropping below TLow will only trigger an event if the previous Alert was triggered by the temperature exceeding THigh. 
 
 *See [Using Interrupts](#using-interrupts) for more information.*
