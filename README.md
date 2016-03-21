@@ -150,7 +150,7 @@ Enables interrupt mode. In interrupt mode, the Alert pin is activated when the t
 
 #### Interrupt Conditions
 
-After a cold boot, only a temperature exceeding THigh will trigger an Alert. Once an Alert has occurred it will be used to determine the conditions for the next event. Neither a warm boot not the installation of new application code will clear the interrupt state. A measured temperature higher than THigh will only trigger an Alert if the *previous* Alert was triggered by the temperature dropping below TLow, or a cold boot has taken place. The temperature dropping below TLow will only trigger an event if the previous Alert was triggered by the temperature exceeding THigh. 
+After a cold boot, only a temperature exceeding THigh will trigger an Alert. Once an Alert has occurred it will be used to determine the conditions for the next event. Neither a warm boot or the installation of new application code will clear the interrupt state. A measured temperature higher than THigh will only trigger an Alert if the *previous* Alert was triggered by the temperature dropping below TLow, or a cold boot has taken place. The temperature dropping below TLow will only trigger an event if the previous Alert was triggered by the temperature exceeding THigh.
 
 *See [Using Interrupts](#using-interrupts) for more information.*
 
